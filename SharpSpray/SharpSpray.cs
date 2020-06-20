@@ -16,9 +16,9 @@ namespace SharpSpray
             if (LogonServer == null)
             {
                 Console.WriteLine("[-] Failed to retrieve the LOGONSERVER the environment variable; the script will exit.");
-                System.Environment.Exit(1);
+                return;
             }
-            
+
             List<string> UserList = new List<string>();
             int minPwdLength = new int();
             int lockoutThreshold = new int();
@@ -66,7 +66,7 @@ namespace SharpSpray
                 else
                 {
                     Console.WriteLine("[-] Failed to retrieve the usernames from Active Directory; the script will exit.");
-                    System.Environment.Exit(1);
+                    return;
                 }
 
                 if (UserList != null)
@@ -81,13 +81,13 @@ namespace SharpSpray
                 else
                 {
                     Console.WriteLine("[-] Failed to create a list the usernames from Active Directory; the script will exit.");
-                    System.Environment.Exit(1);
+                    return;
                 }
             }
             catch
             {
                 Console.WriteLine("[-] Failed to find or connect to Active Directory; the script will exit.");
-                System.Environment.Exit(1);
+                return;
             }
 
             List<string> SeedList = new List<string>();
@@ -125,7 +125,7 @@ namespace SharpSpray
             if (PasswordList == null)
             {
                 Console.WriteLine("[-] The PasswordList variable is empty; the script will exit.");
-                System.Environment.Exit(1);
+                return;
             }
             Console.WriteLine("[+] Successfully generated a list of " + PasswordList.Count + " passwords.");
 
@@ -218,7 +218,8 @@ namespace SharpSpray
             {
                 return "Winter";
             }
-            else {
+            else
+            {
                 return null;
             }
         }
@@ -249,8 +250,8 @@ namespace SharpSpray
 
                 foreach (string Seed in SeedList)
                 {
-                    foreach (string Item in AppendList) 
-                    { 
+                    foreach (string Item in AppendList)
+                    {
                         string Candidate = Seed + Item;
                         if (Candidate.Length >= minPwdLength)
                         {
